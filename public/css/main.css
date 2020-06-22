@@ -1,0 +1,58 @@
+/**
+ *
+ * font-family: 'Merriweather', serif;
+font-family: 'Fjalla One', sans-serif;
+font-family: 'Atomic Age', cursive;
+font-family: 'Orbitron', sans-serif;
+font-family: 'Eagle Lake', cursive;
+ */
+body{
+    min-height: 100vh;
+    margin-bottom: 80px;
+}
+.some {
+	color: #F44336;
+    font-family: 'Atomic Age', cursive;
+    font-size: larger;
+}
+.profile{
+	background: #84817a;
+	border-radius: 10px;
+	max-height: 250px;
+}
+.profile img{
+	width: 120px;
+	height: 120px;
+	margin-bottom: 10px;
+}
+.profile h2{
+	font-family: 'Merriweather', serif;
+	font-size: larger;
+}
+.profile h5{
+	font-family: 'Merriweather', serif;
+	font-size: medium;
+}
+
+.about_card i{
+  color: #74b9ff;
+  font-size: 55px;
+}
+.about_card h2{
+  padding-top: 2px;
+  font-size: 25px;
+}
+.about_card:hover h2{
+  color: #0985e38a;
+}
+.about_card:hover{
+  border: 0.2px solid #0983e0a8;
+}
+.title{
+font-family: 'Simonetta';
+font-size: 25px;
+}
+.profileShow{
+   font-family: 'Simonetta';
+   font-size: 18px;;
+}
