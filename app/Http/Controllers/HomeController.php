@@ -31,11 +31,31 @@ class HomeController extends Controller
         $totalFile=storeFile::where('userId',$userId)->count();
         return view('index')->with('FilesInfo',$userFile)->with('totalFile',$totalFile);
     }
-     public function profile()
+    public function profile()
     {
         return view('userProfile');
     }
     public function contact() {
         return view('about');
+    }
+    public function updateProfileImage(Request $request)
+    {
+        $validatedData = $request->validate([
+            'image' => 'mimes:jpeg,png,jpg|max:3036',
+        ]);
+        $image = $_FILES["image"]["name"];
+        $temp_name = $_FILES["image"]["tmp_name"];
+        $folder = "profile/" . $image;
+        move_uploaded_file($temp_name, $folder);
+        $user = User::where('id',$request->old_id)->first();
+        $old_img = $user->image;
+        unlink($old_img);
+        $user->image= $folder;
+        $user->save();
+         $notification=array(
+            'messege'=> 'Profile update Successfully!!',
+            'alart-type'=>'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

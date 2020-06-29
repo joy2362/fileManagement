@@ -28,12 +28,12 @@ class PostControler extends Controller
 
     public function store(Request $request)
     {
-         $validatedData = $request->validate([
+        $validatedData = $request->validate([
             'image' => 'mimes:jpeg,png,jpg|max:3036',
             'title' =>'required|max:150',
             'description' =>'required|max:1000'
         ]);
-         $post=new Post;
+        $post=new Post;
         if ($request->file('image')) {
             $file = $request->file('image');
             $fileName=$file->getClientOriginalName();

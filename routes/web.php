@@ -24,10 +24,10 @@ Route::get('file.edit/{id}','FileController@edit');
 Route::post('file.update','FileController@update');
 
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 
 Route::get('user','HomeController@profile')->name('user.profile');
 Route::get('contactus','HomeController@contact')->name('contact');
-Route::get('/', 'HomeController@index')->name('home')->middleware('verified');
-
+Route::get('/', 'HomeController@index')->name('home');
+Route::post('profile.update','HomeController@updateProfileImage');

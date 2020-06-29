@@ -23,7 +23,6 @@
                             </span>
                         @enderror
                         </div>
-
                     </div>
                     <div class="form-group">
                     <input type="submit" class="btn btn-outline-primary" value="save" name="save">

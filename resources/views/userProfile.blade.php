@@ -12,7 +12,7 @@
               <div class="profile-pic text-center">
                 <img src="{{URL::to(auth::user()->image)}}" alt="Profile Image" class="rounded-circle" style="height: 150px; width: 150px;">
                 <br>
-                <button type="submit" class="btn btn-success btn-sm mt-4">Change Profile</button>
+                <button  class="btn btn-success btn-sm mt-4" data-toggle="modal" data-target="#exampleModal">Change Profile</button>
               </div>
             </div>
             <div class="col-md-7 offset-1 pt-4">
@@ -59,4 +59,38 @@
         </div>
       </div>
     </div>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change profile picture</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="{{URL::to('profile.update')}}" enctype="multipart/form-data">
+        @csrf
+      <input type="hidden" value="{{auth::id()}}" name='old_id'>
+      <div class="modal-body">
+          <div class="form-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="customFile" name="image" autocomplete="image">
+                <label class="custom-file-label" for="customFile">{{ __('Choose file') }}</label>
+                    @error('image')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 @endsection
