@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
-use App\storeFile;
+use App\StoreFile;
 
 class PostControler extends Controller
 {
@@ -16,7 +16,7 @@ class PostControler extends Controller
      public function index()
     {
         $post=Post::paginate(5);
-        $userId=Auth::user()->id;
+        $userId = Auth::id();
         $totalFile=storeFile::where('userId',$userId)->count();
         return view('allForumPost')->with('post',$post)->with('totalFile',$totalFile);
     }
