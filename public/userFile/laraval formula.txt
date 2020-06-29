@@ -1,0 +1,38 @@
+1. belongsto used for many to one relationship 
+
+public function category()
+{
+        return $this->belongsTo('App\Category','category_id');
+}
+
+2.make migration file with model 
+php artisan make:model modelname -m
+
+3.undo database migration
+php artisan migrate:rollback
+
+4.migrate with seed 
+php artisan migrate --seed
+
+5.image intervention
+http://image.intervention.io/getting_started/installation
+
+6.install image intervention
+try
+composer require intervention/image
+else
+Add to composer.json file:
+
+"require": {
+        "intervention/image": "^2.5",
+    },
+After, Run this command in the command prompt: composer update
+
+then see their site 
+this is mainly use for image resize 
+
+7.when use to show data whice inuput from textarea
+then use 
+{!! $product->product_details !!}
+
+8.validation ends_with:@seu.edu.com
