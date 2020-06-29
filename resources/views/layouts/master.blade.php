@@ -47,11 +47,13 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->fullname }} <span class="caret"></span>
+                        {{auth::user()->fullname}}
+                        <img src="{{URL::to(auth::user()->image)}}" alt="Profile Image" class="rounded-circle" style="height: 30px; width: 30px;">
+                        <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
                          <a href="{{route('user.profile')}}" class="dropdown-item">View Profile</a>
-                        <a href="#" class="dropdown-item">Update Profile</a>
+                        <a href="{{route('user.information')}}" class="dropdown-item">Update Profile</a>
                         <a href="{{route('user.password')}}" class="dropdown-item">Change Password</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
@@ -77,7 +79,7 @@
 </footer>
 </body>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
 
 // Add the following code if you want the name of the file appear on select
@@ -90,4 +92,18 @@ $(".custom-file-input").on("change", function() {
 }
 @endif
 </script>
+ <script type="text/javascript">
+  	$(document).ready(function(){
+  		var i=1;
+  		$('#addmore').click(function(){
+  			i++;
+  			$('#item-table').append('<tr id="row'+i+'"> <td><div class="form-group"><div class="custom-file"><input type="file" class="custom-file-input"  id="customFile" name="fileName[]"><label class="custom-file-label" for="customFile">Choose file</label></div></div></td><td><button type="button" class="btn btn-danger btn_remove" name="remove" data-toggle="tooltip" data-placement="top" title="removed" id="'+i+'">X</button></td></tr>');
+  		});
+  		$(document).on('click','.btn_remove',function(){
+  			var btn=$(this).attr("id");
+  			$('#row'+btn+'').remove();
+  		});
+
+  	})
+  </script>
 </html>

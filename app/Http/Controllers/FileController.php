@@ -48,55 +48,70 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'fileName' => 'required|'
-        ]);
+        if($request->fileName){
+            $number=count($request->fileName);
+        }else{
+            $number=0;
+        }
 
-        $userId=Auth::user()->id;
-        $used=Auth::user()->fileSize;
-        if($used >= Auth::user()->maxCapacity){
+
+        if ($number <= 0) {
             $notification = array(
-                'messege' => 'You are running out of stroage!!',
+                'messege' => 'Please select file frist!!',
                 'alart-type' => 'error'
             );
             return redirect()->back()->with($notification);
-        }else {
+        }else{
+            $userId=Auth::user()->id;
+            $used=Auth::user()->fileSize;
+            if($used >= Auth::user()->maxCapacity){
+                $notification = array(
+                    'messege' => 'You are running out of stroage!!',
+                    'alart-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }else {
+
+            for ($i=0; $i <$number ; $i++) {
+
             $file = $request->file('fileName');
-            $fileName=$file->getClientOriginalName();
-            $fileExtention=$file->getClientOriginalExtension();
-            $file_size=$file->getSize();
-            $file_size = number_format($file_size / 1048576,2);
-            $updateUsed = $used + $file_size ;
+            $fileName[$i]=$file[$i]->getClientOriginalName();
+            $fileExtention[$i]=$file[$i]->getClientOriginalExtension();
+            $file_size[$i]=$file[$i]->getSize();
+            $file_size[$i] = number_format($file_size[$i] / 1048576,2);
+            $updateUsed = $used + $file_size[$i];
             if ($updateUsed >= Auth::user()->maxCapacity) {
                 $notification = array(
                 'messege' => 'You are running out of stroage!!',
                 'alart-type' => 'error'
-            );
+             );
             return redirect()->back()->with($notification);
             }else{
                 $destinationPath = 'userFile';
-                $file->move($destinationPath,$fileName);
-                $filePath=$destinationPath."/".$fileName;
+                $file[$i]->move($destinationPath,$fileName[$i]);
+                $filePath[$i]=$destinationPath."/".$fileName[$i];
 
                 $storeFile=new storeFile;
-                $storeFile->Name=$fileName;
-                $storeFile->fileName=$filePath;
+                $storeFile->Name=$fileName[$i];
+                $storeFile->fileName=$filePath[$i];
                 $storeFile->userId=$userId;
-                $storeFile->fileSize=$file_size;
-                $storeFile->extention=$fileExtention;
+                $storeFile->fileSize=$file_size[$i];
+                $storeFile->extention=$fileExtention[$i];
                 $storeFile->save();
                 $user=User::findorfail($userId);
                 $user->fileSize=$updateUsed;
                 $user->save();
-                $notification=array(
-                'messege'=> 'File added Successfully',
-                'alart-type'=>'success'
-            );
+             }
+            }
+            $notification=array(
+                    'messege'=> 'File added Successfully',
+                    'alart-type'=>'success'
+                 );
             return redirect()->back()->with($notification);
-
             }
         }
-}
+
+    }
 
     /**
      * Display the specified resource.

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\StoreFile;
+use Str;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -84,7 +85,34 @@ class HomeController extends Controller
         'alart-type'=>'error'
         );
         return redirect()->back()->with($notification);
+        }
+    }
 
+    public function userInformation(){
+        return view('updateuserinfo');
+    }
+
+    public function updateuserInformation(Request $request){
+        $validatedData = $request->validate([
+            'email' => 'required|email|unique:users,email,'.$request->user,
+            'fullname' => 'required|min:5',
+        ]);
+        $user = User::where('id',$request->user)->first();
+        if(Str::is($request->fullname,$user->fullname) && Str::is($request->email,$user->email)){
+            $notification=array(
+            'messege'=> 'Nothing to change!!!',
+            'alart-type'=>'error'
+            );
+        return redirect()->back()->with($notification);
+        }else{
+            $user->email = $request->email;
+            $user->fullname = $request->fullname;
+            $user->save();
+            $notification=array(
+            'messege'=> 'Update successfull!!!',
+            'alart-type'=>'success'
+            );
+        return redirect('user')->with($notification);
         }
 
     }

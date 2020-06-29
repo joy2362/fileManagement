@@ -45,8 +45,8 @@ body{
 .about_card:hover h2{
   color: #0985e38a;
 }
-.about_card:hover{
-  border: 0.2px solid #0983e0a8;
+.card-deck .card {
+  border-radius:15px 50px ;
 }
 .title{
 font-family: 'Simonetta';

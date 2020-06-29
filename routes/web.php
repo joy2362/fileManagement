@@ -30,6 +30,11 @@ Auth::routes();
 Route::get('user','HomeController@profile')->name('user.profile');
 Route::get('contactus','HomeController@contact')->name('contact');
 Route::get('/', 'HomeController@index')->name('home');
+
 Route::post('profile.update','HomeController@updateProfileImage');
+
 Route::get('user/password','HomeController@updatepassword')->name('user.password');
-Route::post('profile.update','HomeController@updateuserpass')->name('password.update');
+Route::post('password.update','HomeController@updateuserpass')->name('password.update');
+
+Route::get('user/information','HomeController@userInformation')->name('user.information');
+Route::post('information.update','HomeController@updateuserInformation')->name('information.update');
