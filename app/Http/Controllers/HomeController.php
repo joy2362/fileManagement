@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\StoreFile;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -43,6 +44,7 @@ class HomeController extends Controller
         $validatedData = $request->validate([
             'image' => 'mimes:jpeg,png,jpg|max:3036',
         ]);
+
         $image = $_FILES["image"]["name"];
         $temp_name = $_FILES["image"]["tmp_name"];
         $folder = "profile/" . $image;
@@ -52,10 +54,38 @@ class HomeController extends Controller
         unlink($old_img);
         $user->image= $folder;
         $user->save();
-         $notification=array(
+        $notification=array(
             'messege'=> 'Profile update Successfully!!',
             'alart-type'=>'success'
         );
         return redirect()->back()->with($notification);
+    }
+    public function updatepassword(){
+        return view('updatePassword');
+    }
+
+    public function updateuserpass(Request $request){
+         $validatedData = $request->validate([
+            'oldpassord' => 'required',
+            'password' => 'required|confirmed|min:5',
+        ]);
+        $user=User::where('id',$request->user)->first();
+        if(Hash::check($request->oldpassord, $user->password)){
+            $user->password=Hash::make($request->password);
+            $user->save();
+            $notification=array(
+            'messege'=> 'Password update Successfully!!',
+            'alart-type'=>'success'
+        );
+        return redirect('/')->with($notification);
+        }else{
+        $notification=array(
+        'messege'=> 'Old Password not Match!!',
+        'alart-type'=>'error'
+        );
+        return redirect()->back()->with($notification);
+
+        }
+
     }
 }
