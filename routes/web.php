@@ -27,7 +27,7 @@ Route::post('file.update','FileController@update');
 Auth::routes(['verify' => true]);
 
 
-Route::get('user/profile','HomeController@profile')->name('user.profile');
+Route::get('user','HomeController@profile')->name('user.profile');
 Route::get('contactus','HomeController@contact')->name('contact');
 Route::get('/', 'HomeController@index')->name('home')->middleware('verified');
 
