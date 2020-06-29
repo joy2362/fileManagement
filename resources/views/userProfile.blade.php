@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-md-3 pt-3">
               <div class="profile-pic text-center">
-                <img src="{{auth::user()->image}}" alt="Profile Image" class="rounded-circle" style="height: 150px; width: 150px;">
+                <img src="{{URL::to(auth::user()->image)}}" alt="Profile Image" class="rounded-circle" style="height: 150px; width: 150px;">
                 <br>
                 <button type="submit" class="btn btn-success btn-sm mt-4">Change Profile</button>
               </div>

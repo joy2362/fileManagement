@@ -8,7 +8,7 @@
     <div class="col-md-3 ">
         <div class="jumbotron shadow-lg text-center" style="background: #dfe6e9">
             <div class="profile-pic ">
-                <img src="{{auth::user()->image}}" alt="Profile Image" class="rounded-circle" style="height: 150px; width: 150px;">
+                <img src="{{URL::to(auth::user()->image)}}" alt="Profile Image" class="rounded-circle" style="height: 150px; width: 150px;">
             </div>
             <h2 class="pt-4 title"> {{auth::user()->fullname}} </h2>
             <hr class="my-4">
