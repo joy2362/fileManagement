@@ -18,9 +18,16 @@
     </div>
     <div class="col-md-9 ">
         <div class="list-group">
-            <li class="list-group-item active">Latest Forum Topics</li>
+            <li class="list-group-item active">
+                <h5> Forum Topics
+                     <form class="form-inline float-right" action="/action_page.php">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </form>
+                </h5>
+            </li>
             @foreach ($post as $row)
-                <a href="#" class="list-group-item list-group-item-action"> {{ $row->title}}</a>
+        <a href="post.show/{{$row->id}}" class="list-group-item list-group-item-action"> {{ $row->title}}</a>
             @endforeach
             {{ $post->links() }}
         </div>

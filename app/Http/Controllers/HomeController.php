@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\StoreFile;
 use Str;
 use App\User;
+use App\Feadback;
 use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
@@ -114,6 +115,25 @@ class HomeController extends Controller
             );
         return redirect('user')->with($notification);
         }
+    }
 
+    public function userFeadback(Request $request){
+         $validatedData = $request->validate([
+            'email' => 'required|email',
+            'name' => 'required|min:3',
+            'comments' =>'required|min:5',
+        ]);
+        $feadback = new Feadback;
+        $feadback->user_id=auth::id();
+        $feadback->name = $request->name;
+        $feadback->email = $request->email;
+        $feadback->comment= $request->comments;
+        $feadback->save();
+
+        $notification=array(
+            'messege'=> 'Thank you for the feadback!!!',
+            'alart-type'=>'success'
+            );
+        return redirect()->back()->with($notification);
     }
 }

@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\PostComment;
+use App\StoreFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Post;
-use App\StoreFile;
-
-class PostControler extends Controller
+use App\Post;class PostControler extends Controller
 {
     public function __construct()
     {
@@ -53,6 +51,13 @@ class PostControler extends Controller
             'alart-type'=>'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    public function show($id){
+        $post = Post::where('id',$id)->first();
+        $comment = PostComment::where('post_id',$id)->orderBy('id', 'desc')->paginate(5);
+        $totalFile=storeFile::where('userId',Auth::id())->count();
+        return view('singlepost')->with(compact('post','totalFile','comment'));
     }
 
 }

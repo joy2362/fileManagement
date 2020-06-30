@@ -14,7 +14,8 @@
 Route::get('forum', 'PostControler@index')->name('allForum');
 Route::get('post', 'PostControler@create')->name('forum');
 Route::post('post.store','PostControler@store');
-
+Route::get('post.show/{id}','PostControler@show');
+Route::post('post.comment','CommentController@store')->name('addcomment');
 
 Route::get('upload','FileController@create');
 Route::post('file.create','FileController@store');
@@ -38,3 +39,6 @@ Route::post('password.update','HomeController@updateuserpass')->name('password.u
 
 Route::get('user/information','HomeController@userInformation')->name('user.information');
 Route::post('information.update','HomeController@updateuserInformation')->name('information.update');
+
+Route::post('feadback','HomeController@userFeadback')->name('user.feadback');
+

@@ -41,7 +41,7 @@
                     </div>
                 </li>
 				<li class="nav-item">
-					<a href="{{route('contact')}}" class="nav-link">Contract Us</a>
+					<a href="{{route('contact')}}" class="nav-link">Feadback</a>
 				</li>
             </ul>
 			<ul class="navbar-nav ml-auto">
